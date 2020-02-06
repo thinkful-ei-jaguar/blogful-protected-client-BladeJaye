@@ -1,4 +1,6 @@
+import TokenService from '../services/token-service'
 import config from '../config'
+
 
 const ArticleApiService = {
   getArticles() {
@@ -15,6 +17,7 @@ const ArticleApiService = {
   getArticle(articleId) {
     return fetch(`${config.API_ENDPOINT}/articles/${articleId}`, {
       headers: {
+        'authorization': `basic ${TokenService.getAuthToken()}`
       },
     })
       .then(res =>
@@ -39,6 +42,7 @@ const ArticleApiService = {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        'authorization': `basic ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify({
         article_id: articleId,
